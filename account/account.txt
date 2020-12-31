@@ -1,0 +1,3 @@
+root root  abc123
+foodb  foo_user  foo_passwd
+bardb  bar_user   bar_passwd

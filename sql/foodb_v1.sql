@@ -1,0 +1,2 @@
+CREATE TABLE pet (name VARCHAR(20));
+CREATE TABLE people (name VARCHAR(20));
