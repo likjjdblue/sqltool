@@ -49,7 +49,7 @@ function check_mysql_server_connection
      ret_code=$?
      echo "return code ${ret_code}" 
 
-     if [[ "$?" != "0" ]]
+     if [[ "${ret_code}" != "0" ]]
      then
         echo "尝试连接 MYSQL服务器：${db_host},第${i} 次"
         
