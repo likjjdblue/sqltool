@@ -41,6 +41,8 @@ function check_db_table_num
 
 function check_mysql_server_connection
 {
+   flag='bad'
+
    for (( i=0;i<=20;i++ ))
    do
      mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "status;"  >/dev/null 2>&1
@@ -61,8 +63,15 @@ function check_mysql_server_connection
 
         continue
      fi
+     flag='ok'
      break
    done
+
+   if [[ "${flag}" == 'bad' ]]
+   then
+       echo "failed to connect to ${db_host} ${db_root_user} ${db_root_passwd}"
+       exit 1
+   fi
 }
 
 
