@@ -101,10 +101,12 @@ function load_sql
   if [[ "${tmp_total_table_num}" != "0" ]]
   then
      echo "警告：${target_db_name} 库非空，跳过导入SQL，${sql_filepath}"
-     exit 1  
   fi
 
-  mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} ${target_db_name} <${sql_filepath}
+  if [[ "${tmp_total_table_num}" == "0" ]]
+  then
+     mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} ${target_db_name} <${sql_filepath}
+  fi
  
   if [[ "$?" != '0' ]]
   then
