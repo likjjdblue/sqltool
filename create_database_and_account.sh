@@ -164,22 +164,3 @@ done<./account/account.txt
 find `pwd`/sql -mindepth 1 -maxdepth 1 -type f|while read line;do
    load_sql ${line}
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
