@@ -41,13 +41,15 @@ function check_db_table_num
 
 function check_mysql_server_connection
 {
+   flag='bad'
+
    for (( i=0;i<=20;i++ ))
    do
      mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "status;"  >/dev/null 2>&1
      ret_code=$?
      echo "return code ${ret_code}" 
 
-     if [[ "$?" != "0" ]]
+     if [[ "${ret_code}" != "0" ]]
      then
         echo "尝试连接 MYSQL服务器：${db_host},第${i} 次"
         
@@ -61,8 +63,15 @@ function check_mysql_server_connection
 
         continue
      fi
+     flag='ok'
      break
    done
+
+   if [[ "${flag}" == 'bad' ]]
+   then
+       echo "failed to connect to ${db_host} ${db_root_user} ${db_root_passwd}"
+       exit 1
+   fi
 }
 
 
@@ -92,10 +101,12 @@ function load_sql
   if [[ "${tmp_total_table_num}" != "0" ]]
   then
      echo "警告：${target_db_name} 库非空，跳过导入SQL，${sql_filepath}"
-     exit 1  
   fi
 
-  mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} ${target_db_name} <${sql_filepath}
+  if [[ "${tmp_total_table_num}" == "0" ]]
+  then
+     mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} ${target_db_name} <${sql_filepath}
+  fi
  
   if [[ "$?" != '0' ]]
   then

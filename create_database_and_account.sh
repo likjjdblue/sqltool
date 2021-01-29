@@ -9,7 +9,7 @@ db_host=${db_host-mysql}
 #db_user_passwd='!QAZ2wsx1234'
 #
 #mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
-#mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "grant all privileges on ${db_name}.* to ${db_user}@'%' identified by '${db_user_passwd}'"
+#mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "grant all privileges on *.* to ${db_user}@'%' identified by '${db_user_passwd}'"
 
 
 function create_db_and_user
