@@ -20,7 +20,7 @@ function create_db_and_user
 
    echo "create ${db_name} ${db_user} ${db_user_passwd}"
 
-   mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;";true
+   mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "CREATE DATABASE ${db_name};";true
    mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} -e "grant all privileges on *.* to ${db_user}@'%' identified by '${db_user_passwd}'";true
 }
 
@@ -105,7 +105,7 @@ function load_sql
 
   if [[ "${tmp_total_table_num}" == "0" ]]
   then
-     mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} ${target_db_name} <${sql_filepath}
+     mysql -h ${db_host} -u ${db_root_user} -p${db_root_passwd} ${target_db_name}  --default-character-set=utf8mb4 <${sql_filepath}
   fi
  
   if [[ "$?" != '0' ]]
